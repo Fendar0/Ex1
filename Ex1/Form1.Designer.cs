@@ -29,9 +29,8 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btUpdate = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btEdit = new System.Windows.Forms.Button();
-            this.btRemov = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,9 +42,21 @@
             this.dataGridView1.Location = new System.Drawing.Point(13, 13);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(983, 332);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
+            this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
+            // 
+            // btUpdate
+            // 
+            this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btUpdate.Location = new System.Drawing.Point(1002, 51);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(93, 33);
+            this.btUpdate.TabIndex = 4;
+            this.btUpdate.Text = "Upd";
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // btAdd
             // 
@@ -58,35 +69,12 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // btEdit
-            // 
-            this.btEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btEdit.Location = new System.Drawing.Point(1002, 51);
-            this.btEdit.Name = "btEdit";
-            this.btEdit.Size = new System.Drawing.Size(93, 33);
-            this.btEdit.TabIndex = 2;
-            this.btEdit.Text = "Edit";
-            this.btEdit.UseVisualStyleBackColor = true;
-            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
-            // 
-            // btRemov
-            // 
-            this.btRemov.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btRemov.Location = new System.Drawing.Point(1002, 90);
-            this.btRemov.Name = "btRemov";
-            this.btRemov.Size = new System.Drawing.Size(93, 33);
-            this.btRemov.TabIndex = 3;
-            this.btRemov.Text = "Rem";
-            this.btRemov.UseVisualStyleBackColor = true;
-            this.btRemov.Click += new System.EventHandler(this.btRemov_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1107, 361);
-            this.Controls.Add(this.btRemov);
-            this.Controls.Add(this.btEdit);
+            this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btAdd);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
@@ -100,9 +88,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btEdit;
-        private System.Windows.Forms.Button btRemov;
     }
 }
 

@@ -10,25 +10,37 @@ namespace Ex1
     /// Главный класс с логикой
     /// </summary>
     public class Logical
-    {
-        /// <summary>
-        /// Переменная с номером строки в таблице из первой формы.
-        /// Просто костыль, чтобы понять как все +- работает, да и просто хз как сделать правильно)
-        /// </summary>
-        public int RowIndex;
-
+    {        
         /// <summary>
         /// лист для передачи полей в методы
         /// </summary>
         public List<Data> list = new List<Data>();
 
-        /*public void GetData()
+        public List<Data> GetData()
         {
-            using (var db = new ModelDBContainer())
+            using (ModelDBContainer db = new ModelDBContainer())
             {
-                list = db.DataSet.Select(x => x).ToList();
+               return db.DataSet.ToList();
             }
-        }*/
+        }
+
+        public void UpdateRecord(Data data)
+        {
+            using (ModelDBContainer db = new ModelDBContainer())
+            {
+                Data oldData = db.DataSet.FirstOrDefault(x => x.ID == data.ID);
+                oldData.Surname = data.Surname;
+                oldData.Name = data.Name;
+                oldData.Patronymic = data.Patronymic;
+                oldData.Phonenumber = data.Phonenumber;
+                oldData.DateBirth = data.DateBirth;
+                oldData.Email = data.Email;
+                oldData.Disable = data.Disable;
+                oldData.DisableDate = data.DisableDate;
+                oldData.DisableAuthor = data.DisableAuthor;
+                db.SaveChanges();
+            }
+        }
 
         /// <summary>
         /// Метод добавления новых записей
@@ -40,38 +52,6 @@ namespace Ex1
             {                
                 db.DataSet.Add(data);
                 db.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Метод для "удаления" записи
-        /// </summary>
-        /// <param name="dataID">Перемення для определения ID записи (КОСТЫЛЬ)</param>
-        public void DeleteData(int dataID)
-        {            
-            using (ModelDBContainer db = new ModelDBContainer())
-            {
-               Data data = list.ToList()[1];                                //Получение листа с данными полей определенной записи (КОСТЫЛЬ)
-               Data dtrem = db.DataSet.FirstOrDefault(x => x.ID == dataID);
-               dtrem.Disable = data.Disable;
-               dtrem.DisableDate = data.DisableDate;
-               dtrem.DisableAuthor = data.DisableAuthor;
-
-               db.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Метод для занесения имеющихся данных в поля для редактирования данных
-        /// </summary>
-        /// <param name="dataID">Перемення для определения ID записи (КОСТЫЛЬ)</param>
-        public void ViewRecord(int dataID)
-        {
-            list.Clear();
-            using (ModelDBContainer db = new ModelDBContainer())
-            {
-                Data dtrem = db.DataSet.FirstOrDefault(x => x.ID == dataID);
-                list.Add(dtrem);                                             //Занесение в лист данных определенной записи(КОСТЫЛЬ)
             }
         }
     }

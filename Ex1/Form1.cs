@@ -12,46 +12,56 @@ namespace Ex1
 {
     public partial class Form1 : Form
     {
+        List<Data> dataList = new List<Data>();
         public Form1()
         {
             InitializeComponent();
+            Updatelist();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            using (ModelDBContainer db = new ModelDBContainer())
-            {
-                dataGridView1.DataSource = db.DataSet.Select(x => x).ToList();
-            }               
+                      
         }
+
+        private void Updatelist(Data selData = null)
+        {
+            dataList.Clear();
+            foreach(var itm in Program.logic.GetData())
+                dataList.Add(itm);
+            dataGridView1.DataSource = dataList;
+
+            /*if (selData != null)
+            {
+                Data dt = dataList.FirstOrDefault(x => x.ID == selData.ID);
+                dataGridView1.CurrentRow.DataGridView.DataSource = dt;
+            }*/
+        }
+
                
         private void btAdd_Click(object sender, EventArgs e)
         {
-            FormADD add = new FormADD(selectbt: "Add");
-            add.ShowDialog();
-            Hide();
-            Show();
+            Data data = new Data();
+            FormADD FA = new FormADD(data);
+            if(FA.ShowDialog() == DialogResult.OK)
+                Program.logic.AddData(data);
+        }
+        
+        private void btUpdate_Click(object sender, EventArgs e)
+        {
+            Updatelist();
         }
 
-        private void btRemov_Click(object sender, EventArgs e)
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            FormADD add = new FormADD(selectbt: "Rem");
-            add.ShowDialog();
-            Hide();
-            Show();
-        }
-
-        private void btEdit_Click(object sender, EventArgs e)
-        {
-            FormADD add = new FormADD(selectbt: "Ed");
-            add.ShowDialog();
-            Hide();
-            Show();
-        }
-
-        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            Program.logic.RowIndex = e.RowIndex;
+            Data dt = (Data)dataGridView1.CurrentRow.DataBoundItem;
+            if(dt != null)
+            {
+                Data selData = dataList.FirstOrDefault(x => x.ID == dt.ID);
+                FormADD FA = new FormADD(selData);
+                if (FA.ShowDialog() == DialogResult.OK)
+                    Program.logic.UpdateRecord(selData);
+            }
         }
     }
 }
