@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace Ex1
 {
     public partial class Form1 : Form
     {
-        List<Data> dataList = new List<Data>();
+        ObservableCollection<Data> dataList = new ObservableCollection<Data>();
+
         public Form1()
         {
             InitializeComponent();
@@ -21,13 +23,13 @@ namespace Ex1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-                      
+            
         }
 
         private void Updatelist(Data selData = null)
         {
             dataList.Clear();
-            foreach(var itm in Program.logic.GetData())
+            foreach (var itm in Program.logic.GetData())
                 dataList.Add(itm);
             dataGridView1.DataSource = dataList;
 
@@ -38,7 +40,6 @@ namespace Ex1
             }*/
         }
 
-               
         private void btAdd_Click(object sender, EventArgs e)
         {
             Data data = new Data();

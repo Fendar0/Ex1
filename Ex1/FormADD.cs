@@ -26,7 +26,8 @@ namespace Ex1
             dtDateBirth.Value = _data.DateBirth;
             tbEmail.Text = _data.Email;
             ckDisable.Checked = _data.Disable;
-            dtDisableDate.Value = (DateTime)_data.DisableDate;
+            if (_data.DisableDate != null)
+                dtDisableDate.Value = (DateTime)_data.DisableDate;
             tbDisableAuthor.Text = _data.DisableAuthor;
         }
 
